@@ -1,25 +1,20 @@
 {
   "name": "codesistency",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Fullstack Chat App",
+  "main": "backend/src/server.js",
+  "type": "module",
   "engines": {
-     "node": ">=20.0.0"
+    "node": ">=20.0.0"
   },
   "scripts": {
-    "build": "npm install --prefix backend && npm install --prefix frontend && npm run build --prefix frontend",
-    "start" : "npm run start --prefix backend"
+    "dev": "nodemon --prefix backend backend/src/server.js",
+    "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend",
+    "start": "node backend/src/server.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/degagaalemayehu5-cell/chat-web.git"
+  "dependencies": {
+    "dotenv": "^16.4.5"
   },
-  "keywords": [],
   "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/degagaalemayehu5-cell/chat-web/issues"
-  },
-  "homepage": "https://github.com/degagaalemayehu5-cell/chat-web#readme"
+  "license": "ISC"
 }
