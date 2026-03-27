@@ -1,33 +1,29 @@
-import aj from "../lib/arcjet.js";
-import { isSpoofedBot } from "@arcjet/inspect";
+import mongoose from "mongoose";
 
-export const arcjetProtection = async (req, res, next) => {
-  try {
-    const decision = await aj.protect(req);
+const messageSchema = new mongoose.Schema(
+  {
+    senderId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+    receiverId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+    text: {
+      type: String,
+      trim: true,
+      maxlength: 2000,
+    },
+    image: {
+      type: String,
+    },
+  },
+  { timestamps: true }
+);
 
-    if (decision.isDenied()) {
-      if (decision.reason.isRateLimit()) {
-        return res.status(429).json({ message: "Rate limit exceeded. Please try again later." });
-      } else if (decision.reason.isBot()) {
-        return res.status(403).json({ message: "Bot access denied." });
-      } else {
-        return res.status(403).json({
-          message: "Access denied by security policy.",
-        });
-      }
-    }
+const Message = mongoose.model("Message", messageSchema);
 
-    // check for spoofed bots
-    if (decision.results.some(isSpoofedBot)) {
-      return res.status(403).json({
-        error: "Spoofed bot detected",
-        message: "Malicious bot activity detected.",
-      });
-    }
-
-    next();
-  } catch (error) {
-    console.log("Arcjet Protection Error:", error);
-    next();
-  }
-};
+export default Message;
