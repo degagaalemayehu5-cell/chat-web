@@ -1,20 +1,13 @@
 {
   "name": "codesistency",
   "version": "1.0.0",
-  "description": "Fullstack Chat App",
-  "main": "backend/src/server.js",
   "type": "module",
+  "main": "backend/src/server.js",
   "engines": {
     "node": ">=20.0.0"
   },
   "scripts": {
-    "dev": "nodemon --prefix backend backend/src/server.js",
-    "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend",
+    "build": "npm install --prefix backend && npm install --prefix frontend && npm run build --prefix frontend",
     "start": "node backend/src/server.js"
-  },
-  "dependencies": {
-    "dotenv": "^16.4.5"
-  },
-  "author": "",
-  "license": "ISC"
+  }
 }
